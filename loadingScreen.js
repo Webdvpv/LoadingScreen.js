@@ -6,7 +6,7 @@ Author: Volkan Coşkun ~ webdvpv@gmail.com ~ https://volkancoskun.tk
 
 document.addEventListener("DOMContentLoaded", function () {
     /**
-     * @param useCustom Eğer true ise settings.run fonksiyonunun parametreleri aktif olur.
+     * @param useCustom If true, the parameters of the settings.run function are active.
      * @param defaultTemplate Defines default template
      * @param customTemplate Defines custom template
      * @param defaultPlace By default, it is placed at the beginning of the body tag.
