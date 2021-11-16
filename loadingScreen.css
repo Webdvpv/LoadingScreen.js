@@ -19,3 +19,20 @@
 .fadeToggle {
     opacity: 0;
 }
+
+.d-none {
+    display: none;
+}
+
+.gif-0,
+.gif-2 {
+    background-color: black;
+}
+
+.gif-1 {
+    background-color: #e4f0f0;
+}
+
+.gif-3 {
+    background-color: #130831;
+}
