@@ -9,7 +9,7 @@
     font-family: sans-serif;
     position: absolute;
     inset: 0;
-    z-index: 9999;
+    z-index: 999999;
     transition: opacity 0.5s linear;
     -o-transition: opacity 0.5s linear;
     -moz-transition: opacity 0.5s linear;
