@@ -6,29 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/loadingScreen.css">
 </head>
 
 <body>
-    <div class="asd"></div>
+    <div class="loadingScreen">
+        <img src="/assets/gifset/3.gif" alt="">
+    </div>
     <script src="/loadingScreen.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            initialize_sequence(["body", "start"], {
-                css: {
-                    path: "/",
-                    name: "loadingScreen"
-                },
-                image: {
-                    path: "/assets/gifset/",
-                    name: "3.gif",
-                    alt: "Loading Screen"
-                },
-                animation: {
-                    name: "fadeToggle",
-                    close: 2000
-                }
-            })
-        })
+        initialize_sequence()
     </script>
 </body>
 
