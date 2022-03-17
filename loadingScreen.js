@@ -26,7 +26,7 @@ function initialize_sequence(placement, settings) {
                 document.querySelector(placement[0]).insertAdjacentHTML("beforeend", "<div class=\"loadingScreen\"></div>");
         }
         /* IMAGE */
-        if (placement !== undefined && settings.image != undefined)
+        if (placement !== undefined && settings.image != undefined && loadingScreen != undefined)
             loadingScreen.innerHTML = "<img src=\"".concat(settings.image.path + settings.image.name, "\" alt=\"").concat(settings.image.alt != undefined || settings.image.alt != "" ? settings.image.alt : "", "\">");
         /* ANIMATION */
         if (settings.animation != undefined) {

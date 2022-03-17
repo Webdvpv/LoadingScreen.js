@@ -30,7 +30,7 @@ function initialize_sequence(placement, settings) {
         }
 
         /* IMAGE */
-        if (placement !== undefined && settings.image != undefined) loadingScreen.innerHTML = `<img src="${settings.image.path + settings.image.name}" alt="${settings.image.alt != undefined || settings.image.alt != "" ? settings.image.alt : ""}">`
+        if (placement !== undefined && settings.image != undefined && loadingScreen != undefined) loadingScreen.innerHTML = `<img src="${settings.image.path + settings.image.name}" alt="${settings.image.alt != undefined || settings.image.alt != "" ? settings.image.alt : ""}">`
 
         /* ANIMATION */
         if (settings.animation != undefined) {
