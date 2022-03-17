@@ -10,12 +10,23 @@
 </head>
 
 <body>
-    <div class="loadingScreen">
-        <img src="/assets/gifset/3.gif" alt="">
-    </div>
     <script src="/loadingScreen.js"></script>
     <script>
-        initialize_sequence()
+        loadingscreen(["body", "start"], {
+            css: {
+                name: "loadingScreen",
+                path: "/"
+            },
+            image: {
+                name: "0.gif",
+                path: "/assets/gifset/",
+                alt: "Alternative Text"
+            },
+            animation: {
+                name: "fadeToggle",
+                close: 2000
+            }
+        })
     </script>
 </body>
 
