@@ -41,9 +41,7 @@ Just place it anywhere.
 ```
 initialize_sequence([], {…})
 ```
-```
-initialize_sequence()
-```
+
 ---
 
 **Parameters (Optional)**
