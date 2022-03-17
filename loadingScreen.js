@@ -47,7 +47,8 @@ function initialize_sequence(placement, settings) {
     }
     else {
         setTimeout(function () {
-            loadingScreen.classList.add("fadeToggle");
+            if (loadingScreen != null)
+                loadingScreen.classList.add("fadeToggle");
         }, 2000);
     }
 }
