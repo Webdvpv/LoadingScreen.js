@@ -42,7 +42,7 @@ Just place it anywhere.
 initialize_sequence([], {…})
 ```
 ```
-initialize_sequence({…})
+initialize_sequence()
 ```
 ---
 
@@ -74,7 +74,7 @@ image: {
 **Animation (Optional):** The animation takes its name from loadingScreen.css. You can change this. Default value is **"fadeToggle"**.
 
 ```
-animation: {name: "fadeToggle or what you want", close: 2000}
+animation: {name: "fadeToggle or yourCustomClass Classes", close: 2000}
 ```
 
 
