@@ -1,5 +1,29 @@
 {
   "dependencies": {
     "typescript": "^4.6.2"
-  }
+  },
+  "name": "loadingscreen",
+  "version": "1.0.0",
+  "description": "It's a very simple Loading Screen Script to use",
+  "main": "loadingScreen.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Webdvpv/LoadingScreen.js.git"
+  },
+  "keywords": [
+    "loading",
+    "loading",
+    "screen"
+  ],
+  "idea": "Volkan Coskun ~ ugurcengiz@mail.com.tr ~ https://ugurcengiz.com",
+  "author": "Volkan Coskun ~ webdvpv@gmail.com ~ https://volkancoskun.herokuapp.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Webdvpv/LoadingScreen.js/issues"
+  },
+  "homepage": "https://github.com/Webdvpv/LoadingScreen.js#readme"
 }

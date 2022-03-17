@@ -1,11 +1,17 @@
 "use strict";
+/*
+//===== LOADING SCREEN =====\\
+Idea: Uğur Cengiz ~ ugurcengiz@mail.com.tr ~ https://ugurcengiz.com
+Author: Volkan Coşkun ~ webdvpv@gmail.com ~ https://volkancoskun.herokuapp.com
+*/
 function inject_css(settings) {
     var head = document.head;
     head.insertAdjacentHTML("beforeend", "<link rel=\"stylesheet\" href=\"".concat(settings.css.path + settings.css.name, ".css\" />"));
 }
 function initialize_sequence(placement, settings) {
     /* IMPORT CSS FILE */
-    inject_css(settings);
+    if (settings.css != undefined)
+        inject_css(settings);
     /* PLACING MAIN ELEMENT */
     if (placement !== undefined) {
         if (placement[1] == "start")
@@ -13,14 +19,24 @@ function initialize_sequence(placement, settings) {
         else if (placement[1] == "end")
             document.querySelector(placement[0]).insertAdjacentHTML("beforeend", "<div class=\"loadingScreen\"></div>");
     }
-    /* ADD STYLE TO THE MAIN ELEMENT */
     var loadingScreen = document.querySelector(".loadingScreen");
-    for (var i = 0; i < settings.style.length; i++)
-        loadingScreen.style.cssText += "".concat(settings.style[i]);
     /* IMAGE */
-    loadingScreen.innerHTML = "<img src=\"".concat(settings.image.path + settings.image.name, "\" alt=\"").concat(settings.image.alt, "\">");
+    if (placement !== undefined && settings.image != undefined)
+        loadingScreen.innerHTML = "<img src=\"".concat(settings.image.path + settings.image.name, "\" alt=\"").concat(settings.image.alt != undefined || settings.image.alt != "" ? settings.image.alt : "", "\">");
     /* ANIMATION */
-    setTimeout(function () {
-        loadingScreen.classList.add(settings.animation.name);
-    }, settings.animation.close);
+    if (settings.animation != undefined) {
+        setTimeout(function () {
+            if (settings.animation.name != undefined && settings.animation.name != "") {
+                loadingScreen.classList.add(settings.animation.name);
+            }
+            else {
+                loadingScreen.classList.add("fadeToggle");
+            }
+        }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
+    }
+    else {
+        setTimeout(function () {
+            loadingScreen.classList.add("fadeToggle");
+        }, 2000);
+    }
 }

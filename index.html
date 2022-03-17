@@ -9,11 +9,11 @@
 </head>
 
 <body>
+    <div class="asd"></div>
     <script src="/loadingScreen.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             initialize_sequence(["body", "start"], {
-                start: "auto",
                 css: {
                     path: "/",
                     name: "loadingScreen"
@@ -21,15 +21,12 @@
                 image: {
                     path: "/assets/gifset/",
                     name: "3.gif",
-                    alt: "Any Alternative Text"
+                    alt: "Loading Screen"
                 },
                 animation: {
                     name: "fadeToggle",
                     close: 2000
-                },
-                style: [
-                    "background-color: #130831"
-                ]
+                }
             })
         })
     </script>
