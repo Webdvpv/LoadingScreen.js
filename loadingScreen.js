@@ -52,8 +52,12 @@ function loadingscreen(placement, settings) {
         /* ANIMATION OBJECT (OPTIONAL)*/
         if (settings.animation != undefined) {
             setTimeout(function () {
-                if (settings.animation.name != undefined && settings.animation.name != "")
-                    wrapper.classList.add(settings.animation.name);
+                if (settings.animation.name != undefined && settings.animation.name != "") {
+                    wrapper.classList.add("".concat(settings.animation.name));
+                    setTimeout(function () {
+                        wrapper.classList.add("d-none");
+                    }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
+                }
                 else {
                     wrapper.classList.add("fadeToggle");
                 }
@@ -70,4 +74,3 @@ function loadingscreen(placement, settings) {
         console.error("Settings object cannot be empty. Set your settings.");
     /* SETTINGS END */
 }
-//# sourceMappingURL=loadingScreen.js.map

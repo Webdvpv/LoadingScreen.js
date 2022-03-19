@@ -56,7 +56,12 @@ function loadingscreen(placement: Array<string>, settings: Objects) {
         /* ANIMATION OBJECT (OPTIONAL)*/
         if (settings.animation != undefined) {
             setTimeout(() => {
-                if (settings.animation.name != undefined && settings.animation.name != "") wrapper.classList.add(settings.animation.name)
+                if (settings.animation.name != undefined && settings.animation.name != "") {
+                    wrapper.classList.add(`${settings.animation.name}`)
+                    setTimeout(() => {
+                        wrapper.classList.add("d-none")
+                    }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
+                }
                 else {
                     wrapper.classList.add("fadeToggle")
                 }
