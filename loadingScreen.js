@@ -3,6 +3,7 @@
 //===== LOADING SCREEN =====\\
 Idea: Uğur Cengiz ~ ugurcengiz@mail.com.tr ~ https://ugurcengiz.com
 Author: Volkan Coşkun ~ webdvpv@gmail.com ~ https://volkancoskun.herokuapp.com
+Github: https://github.com/Webdvpv/LoadingScreen.js
 */
 var wrapper;
 var head = document.head;
@@ -24,6 +25,7 @@ function loadingscreen(placement, settings) {
     else
         console.error("Missing 'placement' Array");
     /* PLACING MAIN ELEMENT (REQUIRED) END */
+    /* SETTINGS OBJECT (REQUIRED)*/
     if (settings != undefined) {
         wrapper = document.querySelector(".wrapper");
         /* IMPORT CSS FILE (OPTIONAL) */
@@ -36,13 +38,18 @@ function loadingscreen(placement, settings) {
         else
             console.warn("You must add the stylesheet manually");
         /* IMPORT CSS FILE (OPTIONAL) END */
-        /* IMAGE */
-        if (Object.keys(settings.image).length != 0 && settings.image.name != undefined && settings.image.name != "" && settings.image.path != undefined && settings.image.path != "")
-            wrapper.innerHTML = "<img src=\"".concat(settings.image.path + settings.image.name, "\" alt=\"").concat(settings.image.alt != undefined || settings.image.alt != "" ? settings.image.alt : "", "\">");
+        /* IMAGE OBJECT */
+        if (settings.image != undefined) {
+            if (Object.keys(settings.image).length != 0 && settings.image.name != undefined && settings.image.name != "" && settings.image.path != undefined && settings.image.path != "") {
+                wrapper.innerHTML = "<img src=\"".concat(settings.image.path + settings.image.name, "\" alt=\"").concat(settings.image.alt != undefined || settings.image.alt != "" ? settings.image.alt : "", "\">");
+            }
+            else
+                console.error("Name and path must be defined!");
+        }
         else
-            console.error("All defines must be defined!");
+            console.error("Define image object!");
         /* IMAGE END */
-        /* ANIMATION */
+        /* ANIMATION OBJECT (OPTIONAL)*/
         if (settings.animation != undefined) {
             setTimeout(function () {
                 if (settings.animation.name != undefined && settings.animation.name != "")
@@ -61,4 +68,6 @@ function loadingscreen(placement, settings) {
     }
     else
         console.error("Settings object cannot be empty. Set your settings.");
+    /* SETTINGS END */
 }
+//# sourceMappingURL=loadingScreen.js.map
