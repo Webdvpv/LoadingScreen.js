@@ -53,10 +53,22 @@ function loadingscreen(placement, settings) {
         if (settings.animation != undefined) {
             setTimeout(function () {
                 if (settings.animation.name != undefined && settings.animation.name != "") {
-                    wrapper.classList.add("".concat(settings.animation.name));
-                    setTimeout(function () {
-                        wrapper.classList.add("d-none");
-                    }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
+                    if (settings.animation.toggleMode != undefined) {
+                        if (settings.animation.toggleMode === true) {
+                            window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name);
+                        }
+                        else {
+                            wrapper.classList.add("".concat(settings.animation.name));
+                        }
+                    }
+                    else {
+                        wrapper.classList.add("".concat(settings.animation.name));
+                    }
+                    if (settings.animation.toggleMode == undefined || settings.animation.toggleMode === false) {
+                        setTimeout(function () {
+                            wrapper.classList.add("d-none");
+                        }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
+                    }
                 }
                 else {
                     wrapper.classList.add("fadeToggle");
@@ -73,4 +85,15 @@ function loadingscreen(placement, settings) {
     else
         console.error("Settings object cannot be empty. Set your settings.");
     /* SETTINGS END */
+}
+function setLoadingScreenStatus(visibilityStatus) {
+    if (window.sessionStorage.getItem("session_settings.animation.name") != undefined) {
+        var currentSettingAnimationName = window.sessionStorage.getItem('session_settings.animation.name');
+        if (visibilityStatus === false) {
+            window.document.querySelector('.wrapper').classList.add(currentSettingAnimationName);
+        }
+        if (visibilityStatus === true) {
+            window.document.querySelector('.wrapper').classList.remove(currentSettingAnimationName);
+        }
+    }
 }
