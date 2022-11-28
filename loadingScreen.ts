@@ -102,14 +102,13 @@ function loadingscreen(placement: Array<string>, settings: Objects) {
                     }
                 }
                 else {
-                    wrapper.classList.add("fadeToggle")
+                    wrapper.classList.add("fadeToggle d-none")
                 }
             }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
 
         } else {
-
             setTimeout(() => {
-                wrapper.classList.add("fadeToggle")
+                wrapper.classList.add("fadeToggle d-none")
             }, 2000)
 
         }
@@ -143,7 +142,7 @@ function startRender() {
     requestAnimationFrame(rendered);
 }
 
-function loaded()  {
+function loaded() {
     requestAnimationFrame(startRender);
 }
 /*

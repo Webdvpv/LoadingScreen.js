@@ -70,15 +70,28 @@ function loadingscreen(placement, settings) {
                     else {
                         wrapper.classList.add("".concat(settings.animation.name));
                     }
+                    if (settings.animation.toggleMode == undefined || settings.animation.toggleMode === false) {
+                        // setTimeout(() => {
+                        //     var readyStateCheckInterval = setInterval(function () {
+                        //         if (document.readyState === "complete") {
+                        //             clearInterval(readyStateCheckInterval)
+                        //             wrapper.classList.add("d-none")
+                        //         }
+                        //     }, 100)
+                        // }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
+                        // window.addEventListener("DOMContentLoaded", function () {
+                        //     wrapper.classList.add("d-none")
+                        // })
+                    }
                 }
                 else {
-                    wrapper.classList.add("fadeToggle");
+                    wrapper.classList.add("fadeToggle d-none");
                 }
             }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
         }
         else {
             setTimeout(function () {
-                wrapper.classList.add("fadeToggle");
+                wrapper.classList.add("fadeToggle d-none");
             }, 2000);
         }
         /* ANIMATION END */
