@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/loadingScreen.css">
 </head>
 
 <body>
+    <h1>This is a test for loading scene. Large image loads slow. Or you should test it from 'Developer Console > Network Tab'</h1>
+    <img src="https://storge.pic2.me/cm/5120x2880/966/5286d9cf5b8df.jpg" alt=""
+        style="display:block;width:100%;height:700px;object-fit:cover;object-position:center;" onload="loaded()">
     <script src="/loadingScreen.js"></script>
     <script>
         var myLoading = loadingscreen(["body", "start"], {
@@ -21,10 +23,6 @@
                 name: "3.gif",
                 path: "/assets/gifset/",
                 alt: "Alternative Text"
-            },
-            animation: {
-                name: "fadeToggle",
-                close: 2000
             }
         })
     </script>

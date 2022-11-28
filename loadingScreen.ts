@@ -7,7 +7,7 @@ Author: Volkan Coşkun ~ webdvpv@gmail.com ~ https://volkancoskun.herokuapp.com
 Github: https://github.com/Webdvpv/LoadingScreen.js
 */
 
-let wrapper: HTMLElement
+let wrapper: HTMLElement, hrefs: HTMLCollection
 const head = document.head
 
 type Keys = {
@@ -15,7 +15,7 @@ type Keys = {
     path: string,
     alt: string,
     close: number,
-    toggleMode: boolean
+    toggleMode: boolean,
 }
 
 interface Objects {
@@ -46,10 +46,18 @@ function loadingscreen(placement: Array<string>, settings: Objects) {
 
         /* IMPORT CSS FILE (OPTIONAL) */
         if (settings.css != undefined) {
-            if (Object.keys(settings.css).length != 0 && settings.css.name != undefined && settings.css.name != "" && settings.css.path != undefined && settings.css.path != "") inject_css(settings)
+            if (Object.keys(settings.css).length != 0 && settings.css.name != undefined && settings.css.name != "" && settings.css.path != undefined && settings.css.path != "") {
+                inject_css(settings)
+            }
             else console.error("CSS path and name must be defined!")
         }
-        else console.warn("You must add the stylesheet manually")
+        else {
+            hrefs = document.getElementsByTagName("link")
+
+            for (let i = 0; i < hrefs.length; i++) {
+                if (hrefs.length == null) console.warn("You must add the stylesheet manually")
+            }
+        }
         /* IMPORT CSS FILE (OPTIONAL) END */
 
         /* IMAGE OBJECT */
@@ -66,22 +74,32 @@ function loadingscreen(placement: Array<string>, settings: Objects) {
             setTimeout(() => {
                 if (settings.animation.name != undefined && settings.animation.name != "") {
 
-                    if(settings.animation.toggleMode != undefined){
-                        if(settings.animation.toggleMode === true){
-                            window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name);
-                        }else{
+                    if (settings.animation.toggleMode != undefined) {
+                        if (settings.animation.toggleMode === true) {
+                            window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name)
+                        } else {
                             wrapper.classList.add(`${settings.animation.name}`)
                         }
-                    }else{
+                    } else {
                         wrapper.classList.add(`${settings.animation.name}`)
                     }
 
-                        if(settings.animation.toggleMode == undefined || settings.animation.toggleMode === false){
-                            setTimeout(() => {
-                                wrapper.classList.add("d-none")
-                            }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
-                        }
+                    if (settings.animation.toggleMode == undefined || settings.animation.toggleMode === false) {
+                        // setTimeout(() => {
+                        //     var readyStateCheckInterval = setInterval(function () {
 
+                        //         if (document.readyState === "complete") {
+                        //             clearInterval(readyStateCheckInterval)
+                        //             wrapper.classList.add("d-none")
+                        //         }
+                        //     }, 100)
+                        // }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
+
+
+                        // window.addEventListener("DOMContentLoaded", function () {
+                        //     wrapper.classList.add("d-none")
+                        // })
+                    }
                 }
                 else {
                     wrapper.classList.add("fadeToggle")
@@ -102,19 +120,32 @@ function loadingscreen(placement: Array<string>, settings: Objects) {
     /* SETTINGS END */
 }
 
-function setLoadingScreenStatus(visibilityStatus: Boolean){
-    if(window.sessionStorage.getItem("session_settings.animation.name") != undefined){
-        let currentSettingAnimationName = window.sessionStorage.getItem('session_settings.animation.name');
-        if(visibilityStatus === false){
-            window.document.querySelector('.wrapper').classList.add(currentSettingAnimationName);
+function setLoadingScreenStatus(visibilityStatus: Boolean) {
+    if (window.sessionStorage.getItem("session_settings.animation.name") != undefined) {
+        let currentSettingAnimationName = window.sessionStorage.getItem('session_settings.animation.name')
+        if (visibilityStatus === false) {
+            window.document.querySelector('.wrapper').classList.add(currentSettingAnimationName)
         }
 
-        if(visibilityStatus === true){
-            window.document.querySelector('.wrapper').classList.remove(currentSettingAnimationName);
+        if (visibilityStatus === true) {
+            window.document.querySelector('.wrapper').classList.remove(currentSettingAnimationName)
         }
     }
 }
 
+function rendered() {
+    //Render complete
+    wrapper.classList.add("d-none")
+}
+
+function startRender() {
+    //Rendering start
+    requestAnimationFrame(rendered);
+}
+
+function loaded()  {
+    requestAnimationFrame(startRender);
+}
 /*
 Ajax features will come soon. Also you can be contributor of this library.
 */

@@ -5,7 +5,7 @@ Idea: Uğur Cengiz ~ ugurcengiz@mail.com.tr ~ https://ugurcengiz.com
 Author: Volkan Coşkun ~ webdvpv@gmail.com ~ https://volkancoskun.herokuapp.com
 Github: https://github.com/Webdvpv/LoadingScreen.js
 */
-var wrapper;
+var wrapper, hrefs;
 var head = document.head;
 function inject_css(settings) {
     head.insertAdjacentHTML("beforeend", "<link rel=\"stylesheet\" href=\"".concat(settings.css.path + settings.css.name, ".css\" />"));
@@ -30,13 +30,19 @@ function loadingscreen(placement, settings) {
         wrapper = document.querySelector(".wrapper");
         /* IMPORT CSS FILE (OPTIONAL) */
         if (settings.css != undefined) {
-            if (Object.keys(settings.css).length != 0 && settings.css.name != undefined && settings.css.name != "" && settings.css.path != undefined && settings.css.path != "")
+            if (Object.keys(settings.css).length != 0 && settings.css.name != undefined && settings.css.name != "" && settings.css.path != undefined && settings.css.path != "") {
                 inject_css(settings);
+            }
             else
                 console.error("CSS path and name must be defined!");
         }
-        else
-            console.warn("You must add the stylesheet manually");
+        else {
+            hrefs = document.getElementsByTagName("link");
+            for (var i = 0; i < hrefs.length; i++) {
+                if (hrefs.length == null)
+                    console.warn("You must add the stylesheet manually");
+            }
+        }
         /* IMPORT CSS FILE (OPTIONAL) END */
         /* IMAGE OBJECT */
         if (settings.image != undefined) {
@@ -63,11 +69,6 @@ function loadingscreen(placement, settings) {
                     }
                     else {
                         wrapper.classList.add("".concat(settings.animation.name));
-                    }
-                    if (settings.animation.toggleMode == undefined || settings.animation.toggleMode === false) {
-                        setTimeout(function () {
-                            wrapper.classList.add("d-none");
-                        }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
                     }
                 }
                 else {
@@ -96,4 +97,15 @@ function setLoadingScreenStatus(visibilityStatus) {
             window.document.querySelector('.wrapper').classList.remove(currentSettingAnimationName);
         }
     }
+}
+function rendered() {
+    //Render complete
+    wrapper.classList.add("d-none");
+}
+function startRender() {
+    //Rendering start
+    requestAnimationFrame(rendered);
+}
+function loaded() {
+    requestAnimationFrame(startRender);
 }
