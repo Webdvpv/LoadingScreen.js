@@ -9,20 +9,25 @@
 </head>
 
 <body>
-    <h1>This is a test for loading scene. Large image loads slow. Or you should test it from 'Developer Console > Network Tab'</h1>
+    <h1>This is a test for loading scene. Large image loads slow. Or you should test it from 'Developer Console >
+        Network Tab'</h1>
     <img src="https://storge.pic2.me/cm/5120x2880/966/5286d9cf5b8df.jpg" alt=""
-        style="display:block;width:100%;height:700px;object-fit:cover;object-position:center;" onload="loaded()">
+        style="display:block;width:100%;height:700px;object-fit:cover;object-position:center;">
     <script src="/loadingScreen.js"></script>
     <script>
         var myLoading = loadingscreen(["body", "start"], {
             css: {
-                name: "loadingScreen",
-                path: "/"
+                path: "/",
+                name: "loadingScreen"
             },
             image: {
-                name: "3.gif",
                 path: "/assets/gifset/",
-                alt: "Alternative Text"
+                name: "3.gif",
+                alt: "Loading Screen"
+            },
+            animation: {
+                name: "fadeToggle",
+                close: 1000
             }
         })
     </script>

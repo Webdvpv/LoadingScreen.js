@@ -70,45 +70,18 @@ function loadingscreen(placement: Array<string>, settings: Objects) {
 
         /* ANIMATION OBJECT (OPTIONAL)*/
         if (settings.animation != undefined) {
-
             setTimeout(() => {
                 if (settings.animation.name != undefined && settings.animation.name != "") {
-
-                    if (settings.animation.toggleMode != undefined) {
-                        if (settings.animation.toggleMode === true) {
-                            window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name)
-                        } else {
-                            wrapper.classList.add(`${settings.animation.name}`)
-                        }
-                    } else {
-                        wrapper.classList.add(`${settings.animation.name}`)
-                    }
-
-                    if (settings.animation.toggleMode == undefined || settings.animation.toggleMode === false) {
-                        // setTimeout(() => {
-                        //     var readyStateCheckInterval = setInterval(function () {
-
-                        //         if (document.readyState === "complete") {
-                        //             clearInterval(readyStateCheckInterval)
-                        //             wrapper.classList.add("d-none")
-                        //         }
-                        //     }, 100)
-                        // }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
-
-
-                        // window.addEventListener("DOMContentLoaded", function () {
-                        //     wrapper.classList.add("d-none")
-                        // })
-                    }
+                    if (settings.animation.toggleMode != undefined && settings.animation.toggleMode === true) window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name)
+                    else wrapper.classList.add(`${settings.animation.name}`)
                 }
                 else {
-                    wrapper.classList.add("fadeToggle d-none")
+                    wrapper.classList.add("fadeToggle")
                 }
             }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
-
         } else {
             setTimeout(() => {
-                wrapper.classList.add("fadeToggle d-none")
+                wrapper.classList.add("fadeToggle")
             }, 2000)
 
         }
@@ -132,19 +105,31 @@ function setLoadingScreenStatus(visibilityStatus: Boolean) {
     }
 }
 
+/* CLOSE LOADING SCREEN AFTER ALL IMAGES ARE RENDERED */
+var images = document.querySelectorAll("img")
+
+images.forEach((element, index) => {
+    element.setAttribute("onload", "loaded()")
+});
+
 function rendered() {
     //Render complete
-    wrapper.classList.add("d-none")
+    wrapper.classList.add("fadeToggle")
+    setTimeout(() => {
+        wrapper.classList.add("d-none")
+    }, 500)
 }
 
 function startRender() {
     //Rendering start
-    requestAnimationFrame(rendered);
+    requestAnimationFrame(rendered)
 }
 
 function loaded() {
-    requestAnimationFrame(startRender);
+    requestAnimationFrame(startRender)
 }
+/* AFTER ALL IMAGES END */
+
 /*
 Ajax features will come soon. Also you can be contributor of this library.
 */

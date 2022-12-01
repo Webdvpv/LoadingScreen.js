@@ -59,39 +59,19 @@ function loadingscreen(placement, settings) {
         if (settings.animation != undefined) {
             setTimeout(function () {
                 if (settings.animation.name != undefined && settings.animation.name != "") {
-                    if (settings.animation.toggleMode != undefined) {
-                        if (settings.animation.toggleMode === true) {
-                            window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name);
-                        }
-                        else {
-                            wrapper.classList.add("".concat(settings.animation.name));
-                        }
-                    }
-                    else {
+                    if (settings.animation.toggleMode != undefined && settings.animation.toggleMode === true)
+                        window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name);
+                    else
                         wrapper.classList.add("".concat(settings.animation.name));
-                    }
-                    if (settings.animation.toggleMode == undefined || settings.animation.toggleMode === false) {
-                        // setTimeout(() => {
-                        //     var readyStateCheckInterval = setInterval(function () {
-                        //         if (document.readyState === "complete") {
-                        //             clearInterval(readyStateCheckInterval)
-                        //             wrapper.classList.add("d-none")
-                        //         }
-                        //     }, 100)
-                        // }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
-                        // window.addEventListener("DOMContentLoaded", function () {
-                        //     wrapper.classList.add("d-none")
-                        // })
-                    }
                 }
                 else {
-                    wrapper.classList.add("fadeToggle d-none");
+                    wrapper.classList.add("fadeToggle");
                 }
             }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
         }
         else {
             setTimeout(function () {
-                wrapper.classList.add("fadeToggle d-none");
+                wrapper.classList.add("fadeToggle");
             }, 2000);
         }
         /* ANIMATION END */
@@ -111,9 +91,17 @@ function setLoadingScreenStatus(visibilityStatus) {
         }
     }
 }
+/* CLOSE LOADING SCREEN AFTER ALL IMAGES ARE RENDERED */
+var images = document.querySelectorAll("img");
+images.forEach(function (element, index) {
+    element.setAttribute("onload", "loaded()");
+});
 function rendered() {
     //Render complete
-    wrapper.classList.add("d-none");
+    wrapper.classList.add("fadeToggle");
+    setTimeout(function () {
+        wrapper.classList.add("d-none");
+    }, 500);
 }
 function startRender() {
     //Rendering start
