@@ -9,6 +9,7 @@ Github: https://github.com/Webdvpv/LoadingScreen.js
 
 let wrapper: HTMLElement, hrefs: HTMLCollection
 const head = document.head
+var images = document.querySelectorAll("img")
 
 type Keys = {
     name: string,
@@ -22,10 +23,6 @@ interface Objects {
     css: Keys
     image: Keys
     animation: Keys
-}
-
-function inject_css(settings) {
-    head.insertAdjacentHTML("beforeend", `<link rel="stylesheet" href="${settings.css.path + settings.css.name}.css" />`)
 }
 
 function loadingscreen(placement: Array<string>, settings: Objects) {
@@ -44,22 +41,6 @@ function loadingscreen(placement: Array<string>, settings: Objects) {
     if (settings != undefined) {
         wrapper = document.querySelector(".wrapper")
 
-        /* IMPORT CSS FILE (OPTIONAL) */
-        if (settings.css != undefined) {
-            if (Object.keys(settings.css).length != 0 && settings.css.name != undefined && settings.css.name != "" && settings.css.path != undefined && settings.css.path != "") {
-                inject_css(settings)
-            }
-            else console.error("CSS path and name must be defined!")
-        }
-        else {
-            hrefs = document.getElementsByTagName("link")
-
-            for (let i = 0; i < hrefs.length; i++) {
-                if (hrefs.length == null) console.warn("You must add the stylesheet manually")
-            }
-        }
-        /* IMPORT CSS FILE (OPTIONAL) END */
-
         /* IMAGE OBJECT */
         if (settings.image != undefined) {
             if (Object.keys(settings.image).length != 0 && settings.image.name != undefined && settings.image.name != "" && settings.image.path != undefined && settings.image.path != "") {
@@ -69,23 +50,43 @@ function loadingscreen(placement: Array<string>, settings: Objects) {
         /* IMAGE END */
 
         /* ANIMATION OBJECT (OPTIONAL)*/
-        if (settings.animation != undefined) {
-            setTimeout(() => {
-                if (settings.animation.name != undefined && settings.animation.name != "") {
-                    if (settings.animation.toggleMode != undefined && settings.animation.toggleMode === true) window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name)
-                    else wrapper.classList.add(`${settings.animation.name}`)
-                }
-                else {
-                    wrapper.classList.add("fadeToggle")
-                }
-            }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
-        } else {
-            setTimeout(() => {
-                wrapper.classList.add("fadeToggle")
-            }, 2000)
+        // if (settings.animation != undefined) {
+        //     setTimeout(() => {
+        //         if (settings.animation.name != undefined && settings.animation.name != "") {
+        //             if (settings.animation.toggleMode != undefined && settings.animation.toggleMode === true) window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name)
+        //             else wrapper.classList.add(`${settings.animation.name}`)
+        //         }
+        //         else {
+        //             wrapper.classList.add("fadeToggle")
+        //         }
+        //     }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
+        // } else {
+        //     setTimeout(() => {
+        //         wrapper.classList.add("fadeToggle")
+        //     }, 2000)
 
-        }
+        // }
         /* ANIMATION END */
+        Promise.all(Array.from(document.images).map(img => {
+            if (img.complete)
+                return Promise.resolve(img.naturalHeight !== 0)
+            return new Promise(resolve => {
+                img.addEventListener('load', () => resolve(true))
+                img.addEventListener('error', () => resolve(false))
+            })
+        })).then(results => {
+            // if (results.every(res => res)) {}
+            // else {}
+            wrapper.classList.add("fadeToggle")
+
+            setTimeout(() => {
+                wrapper.classList.add("d-none")
+            }, 500)
+        });
+
+        // var interval = setInterval(function () {
+
+        // }, 200)
 
     }
     else console.error("Settings object cannot be empty. Set your settings.")
@@ -106,29 +107,12 @@ function setLoadingScreenStatus(visibilityStatus: Boolean) {
 }
 
 /* CLOSE LOADING SCREEN AFTER ALL IMAGES ARE RENDERED */
-var images = document.querySelectorAll("img")
 
-images.forEach((element, index) => {
-    element.setAttribute("onload", "loaded()")
-});
 
-function rendered() {
-    //Render complete
-    wrapper.classList.add("fadeToggle")
-    setTimeout(() => {
-        wrapper.classList.add("d-none")
-    }, 500)
-}
 
-function startRender() {
-    //Rendering start
-    requestAnimationFrame(rendered)
-}
 
-function loaded() {
-    requestAnimationFrame(startRender)
-}
 /* AFTER ALL IMAGES END */
+
 
 /*
 Ajax features will come soon. Also you can be contributor of this library.

@@ -7,9 +7,7 @@ Github: https://github.com/Webdvpv/LoadingScreen.js
 */
 var wrapper, hrefs;
 var head = document.head;
-function inject_css(settings) {
-    head.insertAdjacentHTML("beforeend", "<link rel=\"stylesheet\" href=\"".concat(settings.css.path + settings.css.name, ".css\" />"));
-}
+var images = document.querySelectorAll("img");
 function loadingscreen(placement, settings) {
     /* PLACING MAIN ELEMENT (REQUIRED) */
     if (placement != undefined) {
@@ -28,22 +26,6 @@ function loadingscreen(placement, settings) {
     /* SETTINGS OBJECT (REQUIRED)*/
     if (settings != undefined) {
         wrapper = document.querySelector(".wrapper");
-        /* IMPORT CSS FILE (OPTIONAL) */
-        if (settings.css != undefined) {
-            if (Object.keys(settings.css).length != 0 && settings.css.name != undefined && settings.css.name != "" && settings.css.path != undefined && settings.css.path != "") {
-                inject_css(settings);
-            }
-            else
-                console.error("CSS path and name must be defined!");
-        }
-        else {
-            hrefs = document.getElementsByTagName("link");
-            for (var i = 0; i < hrefs.length; i++) {
-                if (hrefs.length == null)
-                    console.warn("You must add the stylesheet manually");
-            }
-        }
-        /* IMPORT CSS FILE (OPTIONAL) END */
         /* IMAGE OBJECT */
         if (settings.image != undefined) {
             if (Object.keys(settings.image).length != 0 && settings.image.name != undefined && settings.image.name != "" && settings.image.path != undefined && settings.image.path != "") {
@@ -56,25 +38,39 @@ function loadingscreen(placement, settings) {
             console.error("Define image object!");
         /* IMAGE END */
         /* ANIMATION OBJECT (OPTIONAL)*/
-        if (settings.animation != undefined) {
-            setTimeout(function () {
-                if (settings.animation.name != undefined && settings.animation.name != "") {
-                    if (settings.animation.toggleMode != undefined && settings.animation.toggleMode === true)
-                        window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name);
-                    else
-                        wrapper.classList.add("".concat(settings.animation.name));
-                }
-                else {
-                    wrapper.classList.add("fadeToggle");
-                }
-            }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000);
-        }
-        else {
-            setTimeout(function () {
-                wrapper.classList.add("fadeToggle");
-            }, 2000);
-        }
+        // if (settings.animation != undefined) {
+        //     setTimeout(() => {
+        //         if (settings.animation.name != undefined && settings.animation.name != "") {
+        //             if (settings.animation.toggleMode != undefined && settings.animation.toggleMode === true) window.sessionStorage.setItem('session_settings.animation.name', settings.animation.name)
+        //             else wrapper.classList.add(`${settings.animation.name}`)
+        //         }
+        //         else {
+        //             wrapper.classList.add("fadeToggle")
+        //         }
+        //     }, settings.animation.close != undefined || settings.animation.close != null ? settings.animation.close : 2000)
+        // } else {
+        //     setTimeout(() => {
+        //         wrapper.classList.add("fadeToggle")
+        //     }, 2000)
+        // }
         /* ANIMATION END */
+        Promise.all(Array.from(document.images).map(function (img) {
+            if (img.complete)
+                return Promise.resolve(img.naturalHeight !== 0);
+            return new Promise(function (resolve) {
+                img.addEventListener('load', function () { return resolve(true); });
+                img.addEventListener('error', function () { return resolve(false); });
+            });
+        })).then(function (results) {
+            // if (results.every(res => res)) {}
+            // else {}
+            wrapper.classList.add("fadeToggle");
+            setTimeout(function () {
+                wrapper.classList.add("d-none");
+            }, 500);
+        });
+        // var interval = setInterval(function () {
+        // }, 200)
     }
     else
         console.error("Settings object cannot be empty. Set your settings.");
@@ -90,23 +86,4 @@ function setLoadingScreenStatus(visibilityStatus) {
             window.document.querySelector('.wrapper').classList.remove(currentSettingAnimationName);
         }
     }
-}
-/* CLOSE LOADING SCREEN AFTER ALL IMAGES ARE RENDERED */
-var images = document.querySelectorAll("img");
-images.forEach(function (element, index) {
-    element.setAttribute("onload", "loaded()");
-});
-function rendered() {
-    //Render complete
-    wrapper.classList.add("fadeToggle");
-    setTimeout(function () {
-        wrapper.classList.add("d-none");
-    }, 500);
-}
-function startRender() {
-    //Rendering start
-    requestAnimationFrame(rendered);
-}
-function loaded() {
-    requestAnimationFrame(startRender);
 }

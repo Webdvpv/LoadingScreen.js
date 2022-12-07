@@ -6,13 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="loadingScreen.css">
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>This is a test for loading scene. Large image loads slow. Or you should test it from 'Developer Console >
+    <h1>This is a test for loading scene. Large image loads slow. Or you can test it from 'Developer Console >
         Network Tab'</h1>
     <img src="https://storge.pic2.me/cm/5120x2880/966/5286d9cf5b8df.jpg" alt=""
-        style="display:block;width:100%;height:700px;object-fit:cover;object-position:center;">
+        style="display:block;width:100%;height:40vh;object-fit:cover;object-position:center;">
+        <img src="http://londontopia.net/wp-content/uploads/2014/07/DSC01753.jpg" alt=""
+        style="display:block;width:100%;height:40vh;object-fit:cover;object-position:center;">
     <script src="/loadingScreen.js"></script>
     <script>
         var myLoading = loadingscreen(["body", "start"], {
@@ -24,10 +33,6 @@
                 path: "/assets/gifset/",
                 name: "3.gif",
                 alt: "Loading Screen"
-            },
-            animation: {
-                name: "fadeToggle",
-                close: 1000
             }
         })
     </script>
